@@ -427,5 +427,24 @@ body::before {
         width: 80%;
     }
 }
+/* TEXTO DENTRO DE LA PANTALLA DEL CELULAR */
+.iphone-screen {
+    position: relative;
+}
+
+.iphone-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    width: 85%;
+    text-shadow: 0 0 8px rgba(255,0,0,0.9);
+    line-height: 1.3;
+}
+
 
 
