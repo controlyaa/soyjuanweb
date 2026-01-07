@@ -278,6 +278,30 @@ body {
         font-size: 3rem;
     }
 }
+/* MOVER CELU MÁS A LA DERECHA */
+.iphone-float {
+    right: 40px;   /* antes estaba muy pegado */
+    left: auto;
+}
+
+/* CONTENIDO INTERNO DEL CELU */
+.iphone-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    text-align: center;
+    line-height: 1.4;
+    text-shadow: 0 0 10px rgba(0,234,255,0.8);
+}
+
+/* AJUSTE EXTRA SOLO EN PC */
+@media (min-width: 900px) {
+    .iphone-float {
+        right: 80px;
+
 
 
 
