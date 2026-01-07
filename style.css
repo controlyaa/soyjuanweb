@@ -301,6 +301,98 @@ body {
 @media (min-width: 900px) {
     .iphone-float {
         right: 80px;
+/* =========================
+   IPHONE FLOTANTE – FIX TOTAL
+   ========================= */
+
+.iphone-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 50;
+    pointer-events: none;
+}
+
+/* TAMAÑO NORMAL (PC) */
+.iphone {
+    width: 160px;
+    height: 320px;
+    border-radius: 26px;
+    background: #000;
+    box-shadow: 0 0 25px rgba(0, 234, 255, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+/* PANTALLA */
+.iphone-screen {
+    position: absolute;
+    inset: 8px;
+    border-radius: 18px;
+    background: #050505;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CONTENIDO (EMOJIS) */
+.iphone-content {
+    font-size: 22px;
+    text-align: center;
+    line-height: 1.4;
+    color: #00eaff;
+    text-shadow: 0 0 8px rgba(0,234,255,0.8);
+}
+
+/* NOTCH */
+.iphone-notch {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 10px;
+    background: #111;
+    border-radius: 6px;
+}
+
+/* LOGOS */
+.iphone-logo-apple {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #aaa;
+    font-size: 18px;
+}
+
+.iphone-logo-wa {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    font-size: 18px;
+}
+
+/* =========================
+   AJUSTE PARA CELULARES
+   ========================= */
+@media (max-width: 768px) {
+
+    .iphone-float {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .iphone {
+        width: 110px;
+        height: 220px;
+    }
+
+    .iphone-content {
+        font-size: 16px;
+    }
+}
+
 
 
 
