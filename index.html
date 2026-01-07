@@ -6,7 +6,40 @@
     <title>SoyJuanWeb | Desarrollo Web</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body><!-- Pelota rebotando -->
+<div id="pelota">
+  <span>FLAC</span>
+</div>
+
+<script>
+  const pelota = document.getElementById("pelota");
+
+  let x = 50;
+  let y = 50;
+  let dx = 2.2;
+  let dy = 2.2;
+
+  const size = 80;
+
+  function moverPelota() {
+    const ancho = window.innerWidth;
+    const alto = window.innerHeight;
+
+    x += dx;
+    y += dy;
+
+    if (x + size >= ancho || x <= 0) dx *= -1;
+    if (y + size >= alto || y <= 0) dy *= -1;
+
+    pelota.style.left = x + "px";
+    pelota.style.top = y + "px";
+
+    requestAnimationFrame(moverPelota);
+  }
+
+  moverPelota();
+</script>
+
 
 <header class="top">
     <h1>SOYJUANWEB</h1>
