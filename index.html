@@ -1,186 +1,229 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SoyJuanWeb | Desarrollo Web</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOY JUAN WEB - Elite Digital Empire</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family: 'Space Grotesk', sans-serif;
+    background: #000; color: white; min-height: 100vh; overflow-x: hidden;
+}
+
+/* PORTAL CINEMATOGRÁFICO CON HUMO */
+#intro-layer {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000; z-index: 9000;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    transition: opacity 2s ease;
+}
+.smoke-cloud {
+    position: absolute; width: 900px; height: 900px;
+    background: radial-gradient(circle, rgba(0,255,136,0.25) 0%, transparent 70%);
+    filter: blur(80px); animation: drift 10s alternate infinite;
+}
+@keyframes drift { from { transform: scale(1) translate(-40px, -40px); } to { transform: scale(1.3) translate(40px, 40px); } }
+
+.portal-ring {
+    position: absolute; border-radius: 50%; border: 4px solid #00ff88;
+    box-shadow: 0 0 100px #00ff88, inset 0 0 80px #00ff88;
+    animation: rotate 3s linear infinite, flicker 0.1s infinite;
+}
+@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes flicker { 0%, 100% { opacity: 0.9; } 50% { opacity: 1; filter: brightness(1.5); } }
+
+#big-title { 
+    font-size: 8rem; font-weight: 900; color: #00ff88; 
+    text-shadow: 0 0 50px #00ff88; cursor: pointer; z-index: 9001; 
+}
+.abducted { transform: scale(0) rotate(720deg); opacity: 0; filter: blur(50px); }
+
+/* HEADER Y INSTRUCCIONES (POSICIONADAS PARA NO TAPAR GOOGLE) */
+#header-brand { 
+    position: fixed; top: 15px; left: 50%; transform: translateX(-50%); 
+    font-size: 3.5rem; font-weight: 900; color: #00ff88; 
+    text-shadow: 0 0 40px #00ff88; z-index: 1000; 
+}
+#instructions { 
+    position: absolute; top: 22%; /* Subido para no tapar el Sol */
+    left: 50%; transform: translate(-50%, -50%); 
+    font-size: 1.1rem; font-weight: 700; color: #fff; text-transform: uppercase; 
+    background: rgba(0,255,136,0.3); padding: 12px 40px; border-radius: 50px; 
+    border: 2px solid #00ff88; z-index: 100; box-shadow: 0 0 20px #00ff88;
+    animation: blink 2s infinite;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* ELEMENTOS DEL UNIVERSO */
+#main-content { opacity: 0; transition: opacity 2s; display: flex; flex-direction: column; align-items: center; }
+.universe { position: relative; width: 100%; height: 90vh; display: flex; justify-content: center; align-items: center; }
+
+#google-sun { 
+    width: 180px; height: 180px; background: #fff; border-radius: 50%; 
+    box-shadow: 0 0 100px #4285F4; display: flex; align-items: center; 
+    justify-content: center; cursor: pointer; z-index: 5; 
+}
+
+.social-planet { 
+    position: absolute; width: 95px; height: 95px; border-radius: 50%; 
+    display: flex; align-items: center; justify-content: center; font-weight: 900; 
+    font-size: 0.75rem; color: white; cursor: pointer; z-index: 15; 
+    box-shadow: 0 0 25px currentColor; animation: orbit 22s linear infinite; 
+}
+@keyframes orbit { from { transform: rotate(0deg) translateX(360px) rotate(0deg); } to { transform: rotate(360deg) translateX(360px) rotate(-360deg); } }
+
+#saturno-juan { position: absolute; right: 8%; top: 15%; width: 180px; height: 180px; background: radial-gradient(circle at 30% 30%, #00ff88, #004d2c); border-radius: 50%; cursor: pointer; z-index: 10; }
+.ring-system { position: absolute; width: 420px; height: 110px; border: 8px double rgba(0, 255, 136, 0.5); border-radius: 50%; top: 50%; left: 50%; margin-left: -210px; margin-top: -55px; transform: rotateX(75deg); animation: ringRot 12s linear infinite; }
+@keyframes ringRot { from { transform: rotateX(75deg) rotateZ(0deg); } to { transform: rotateX(75deg) rotateZ(360deg); } }
+
+/* PLANES */
+.plans-row { display: flex; justify-content: center; gap: 30px; width: 95%; max-width: 1300px; margin: -50px 0 80px; z-index: 20; }
+.plan-card { flex: 1; background: #080808; border: 1px solid #333; border-radius: 35px; padding: 40px; text-align: center; cursor: pointer; transition: 0.5s; }
+.plan-card:hover { border-color: #00ff88; transform: translateY(-15px); box-shadow: 0 0 40px rgba(0,255,136,0.2); }
+.price { font-size: 3rem; font-weight: 900; color: #00ff88; margin: 15px 0; }
+
+/* ASISTENTE Y WA */
+#alien-bot { position: fixed; bottom: 150px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; padding: 35px; border-radius: 30px; width: 750px; font-weight: bold; display: none; z-index: 10000; box-shadow: 0 0 100px #00ff88; text-align: center; line-height: 1.5; }
+#astronaut-icon { position: fixed; font-size: 85px; z-index: 8000; cursor: pointer; transition: all 15s linear; filter: drop-shadow(0 0 15px white); }
+.spinning { animation: spinAstro 1s linear infinite; }
+@keyframes spinAstro { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+#wa-fixed { position: fixed; bottom: 30px; right: 30px; width: 80px; height: 80px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 40px #25d366; z-index: 9999; font-size: 45px; text-decoration: none; }
+
+.stars { position: fixed; width: 100%; height: 100%; top:0; left:0; pointer-events: none; z-index: 1; }
+.star { position: absolute; background: white; border-radius: 50%; }
+</style>
 </head>
-
 <body>
-    <!-- SILUETAS JUGADORES -->
-<img src="mesi.png" alt="Silueta Messi"
-     class="silueta silueta-messi">
 
-<img src="maradona.png" alt="Silueta Maradona"
-     class="silueta silueta-maradona">
+<div id="header-brand">SOY JUAN WEB</div>
+<div id="astronaut-icon" onclick="hablarJuan()">👨‍🚀</div>
 
+<div id="intro-layer">
+    <div class="smoke-cloud"></div>
+    <div class="portal-ring" style="width:600px; height:600px;"></div>
+    <div class="portal-ring" style="width:500px; height:500px; animation-duration: 2s; border-style: dashed;"></div>
+    <h1 id="big-title" onclick="iniciarAbduccion()">SOY JUAN WEB</h1>
+</div>
 
-<header class="top">
-    <h1>SOYJUANWEB</h1>
-    <p class="subtitle">
-        Diseño web profesional · Adaptado a celular · Presencia digital real
-    </p>
-    <p class="ubicacion">
-        📍 Provincia de Buenos Aires · La Matanza · San Justo
-    </p>
-</header>
+<div id="main-content">
+    <div id="instructions">Hacer clic en los planetas y los planes 🚀</div>
+    <div class="stars" id="stars"></div>
+    <div id="alien-bot"></div>
 
-<main class="hero">
-
-    <div class="contenido">
-        <div class="info">
-            <h2>Tu web, hecha para vender</h2>
-            <p>
-                Desarrollo sitios web modernos, rápidos y optimizados para celulares.
-                Ideal para emprendedores, comercios y profesionales que buscan
-                presencia digital real.
-            </p>
-
-            <div class="acciones">
-                <a href="https://wa.me/541140970446" target="_blank" class="btn whatsapp">📲 WhatsApp</a>
-                <a href="mailto:soyjuanwebb@yahoo.com" class="btn mail">✉️ Email</a>
-            </div>
+    <div class="universe">
+        <div class="planet-earth" onclick="viajar(this, 'tierra')" style="position: absolute; left: 8%; top: 25%; width: 160px; height: 160px; background: radial-gradient(circle at 30% 30%, #2b82c9, #1a4a21, #000); border-radius: 50%; cursor: pointer;"></div>
+        
+        <div id="google-sun" onclick="viajar(this, 'google')">
+            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" width="115">
         </div>
 
-        <div class="laptop">
-            <div class="pantalla">
-                <span>&lt;/&gt; SOYJUANWEB</span>
-            </div>
-            <div class="base"></div>
+        <div class="social-planet" onclick="viajar(this, 'fb')" style="background: #1877f2; animation-duration: 20s;">FACEBOOK</div>
+        <div class="social-planet" onclick="viajar(this, 'ig')" style="background: radial-gradient(#f09433, #e1306c); animation-duration: 28s;">INSTAGRAM</div>
+        <div class="social-planet" onclick="viajar(this, 'tk')" style="background: #000; border: 1px solid white; animation-duration: 35s;">TIKTOK</div>
+        <div class="social-planet" onclick="viajar(this, 'yt')" style="background: #ff0000; animation-duration: 24s;">YOUTUBE</div>
+
+        <div id="saturno-juan" onclick="viajar(this, 'historia')"><div class="ring-system"></div></div>
+    </div>
+
+    <div class="plans-row">
+        <div class="plan-card" onclick="viajar(this, 'p1')">
+            <h3>CORP. BÁSICO</h3>
+            <div class="price">$80.000</div>
+            <p><strong>Eficiencia Directa:</strong> Arquitectura optimizada para profesionales que requieren autoridad digital inmediata y un flujo de contacto veloz.</p>
+        </div>
+        <div class="plan-card" onclick="viajar(this, 'p2')">
+            <h3>BUSINESS ELITE</h3>
+            <div class="price">$190.000</div>
+            <p><strong>Dominio Sectorial:</strong> Ecosistema robusto con SEO de alta densidad para dominar las búsquedas y superar a toda su competencia local.</p>
+        </div>
+        <div class="plan-card" onclick="viajar(this, 'p3')">
+            <h3>FULL COMMERCE</h3>
+            <div class="price">$350.000</div>
+            <p><strong>Imperio Global:</strong> Tienda inteligente con gestión autónoma. Su negocio vendiendo en piloto automático a todo el mundo, las 24 horas.</p>
         </div>
     </div>
 
-    <section class="planes">
-        <div class="plan destacado">
-            <h3>Plan Básico</h3>
-            <div class="precio">$80.000</div>
-            <p>Landing page<br>Diseño responsive<br>Publicación online</p>
-        </div>
-
-        <div class="plan">
-            <h3>Plan Estándar</h3>
-            <div class="precio">$190.000</div>
-            <p>Web completa<br>SEO inicial<br>Soporte básico</p>
-        </div>
-
-        <div class="plan">
-            <h3>Plan Avanzado</h3>
-            <div class="precio">$290.000</div>
-            <p>SEO avanzado<br>Optimización<br>Más visibilidad</p>
-        </div>
-    </section>
-
-    <section class="modelos">
-        <h2>Modelos de páginas</h2>
-        <p class="modelos-sub">Diseños reales según tu rubro</p>
-
-        <div class="galeria">
-
-            <div class="mockup">
-                <img src="comida.png" alt="Web de comida">
-                <div class="mockup-info">
-                    <h3>🍔 Gastronomía</h3>
-                    <p>Restaurantes · Delivery · Menús</p>
-                </div>
-            </div>
-
-            <div class="mockup">
-                <img src="calzados.png" alt="Web de Calzados">
-                <div class="mockup-info">
-                    <h3>👟 Calzados</h3>
-                    <p>Tiendas · Catálogos · Ventas</p>
-                </div>
-            </div>
-
-            <div class="mockup">
-                <img src="celulares.png" alt="Web de celulares">
-                <div class="mockup-info">
-                    <h3>📱 Celulares</h3>
-                    <p>Tecnología · Accesorios · Servicio</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-</main>
-
-<section class="redes-sociales">
-    <h2>Publicidad en redes sociales</h2>
-    <p class="subtitulo-redes">
-        Promocionamos tu contenido según tus preferencias semanalmente
-    </p>
-
-    <div class="redes-galeria">
-
-        <div class="red-social">
-            <img src="facebook.png">
-            <h3>Facebook</h3>
-            <p>Publicidad semanal en Facebook.</p>
-        </div>
-
-        <div class="red-social">
-            <img src="instagram.png">
-            <h3>Instagram</h3>
-            <p>Marketing y reels profesionales.</p>
-        </div>
-
-        <div class="red-social">
-            <img src="tiktok.png">
-            <h3>TikTok</h3>
-            <p>Campañas orientadas a resultados.</p>
-        </div>
-
-        <div class="red-social">
-            <img src="youtube.png">
-            <h3>YouTube</h3>
-            <p>Promoción de videos semanal.</p>
-        </div>
-
-    </div>
-</section>
-
-<div class="iphone-float">
-    <div class="iphone">
-        <div class="iphone-screen"></div>
-        <div class="iphone-notch"></div>
-        <div class="iphone-logo-apple"></div>
-        <div class="iphone-logo-wa">📲</div>
+    <div id="comment-section" style="width:90%; max-width:800px; padding:50px; background:#0a0a0a; border:1px solid #1a1a1a; border-radius:40px; margin: 0 auto 100px; text-align:center;">
+        <h2 style="color:#00ff88; margin-bottom:20px;">MENSAJE A LA CENTRAL</h2>
+        <textarea rows="3" placeholder="¿Cómo podemos potenciar su marca hoy?" style="width:100%; background:#000; border:1px solid #00ff88; color:#fff; padding:15px; border-radius:15px;"></textarea>
+        <button style="background:#00ff88; color:#000; padding:15px 40px; border-radius:10px; font-weight:900; border:none; cursor:pointer;" onclick="alert('Mensaje enviado.')">ENVIAR</button>
     </div>
 </div>
 
-<div class="tech-lines"></div>
-
-<!-- PELOTA FLAC -->
-<div id="pelota-flac">FLAC Wilson</div>
+<a href="https://wa.me/5491100000000" id="wa-fixed" target="_blank">🟢</a>
 
 <script>
-(function () {
-    const pelota = document.getElementById("pelota-flac");
-    let x = 100, y = 100;
-    let dx = 2.5, dy = 2.5;
-    const size = 70;
+const astro = document.getElementById('astronaut-icon');
+function moverAstro() {
+    astro.style.left = Math.random() * (window.innerWidth - 120) + 'px';
+    astro.style.top = Math.random() * (window.innerHeight - 120) + 'px';
+}
+setInterval(moverAstro, 15000); moverAstro();
 
-    function animar() {
-        const w = window.innerWidth;
-        const h = window.innerHeight;
+function hablarJuan() {
+    astro.classList.add('spinning');
+    const frases = ["¡Hola! ¿Cómo va todo?", "¡Todo bien por aquí!", "¡Súper!", "¡Hola! ¿Listo para despegar?"];
+    const u = new SpeechSynthesisUtterance(frases[Math.floor(Math.random()*frases.length)]);
+    u.lang = "es-AR";
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+    u.onend = () => astro.classList.remove('spinning');
+}
 
-        x += dx;
-        y += dy;
+const guion = {
+    intro: "Bienvenido a la génesis del éxito digital. Soy Juan Web, y mi historia no comenzó con líneas de código, sino con una visión audaz: eliminar la mediocridad de la red. Entendí que una página web no es solo un adorno, es el corazón latente de un imperio comercial. He dedicado mi vida a perfeccionar la alquimia entre diseño de vanguardia y resultados masivos. Usted no ha venido por una web, ha venido por una ventaja competitiva injusta. Bienvenido a mi galaxia.",
+    tierra: "En la Tierra la competencia es feroz. El noventa por ciento de los negocios mueren por tener una imagen digital pobre. Nosotros dotamos a su marca de una infraestructura de élite para que su mensaje resuene con autoridad global.",
+    historia: "Saturno es el guardián de la estructura. Soy Juan Web ha construido legados que resisten el paso del tiempo y los cambios de algoritmo. Diseñamos activos digitales que se valorizan con cada día de operación.",
+    google: "Google es el sol de su sistema comercial. Nuestra ingeniería SEO de alta densidad garantiza que su marca no solo aparezca, sino que domine las búsquedas orgánicas para capturar a los clientes más valiosos.",
+    fb: "Facebook es el motor de la comunidad. Desarrollamos estrategias para que su marca genere confianza y lealtad, transformando simples seguidores en clientes recurrentes que defienden su empresa.",
+    ig: "Instagram es la vitrina del prestigio. Creamos estéticas visuales disruptivas que capturan la atención en segundos, posicionando su producto como el objeto de deseo número uno en el mercado.",
+    tk: "TikTok es el combustible de la viralidad masiva. Utilizamos algoritmos de contenido dinámico para proyectar su marca ante miles de prospectos en tiempo récord, logrando un crecimiento explosivo.",
+    yt: "YouTube consolida su liderazgo. Mediante el poder del video, explicamos su valor diferencial con profundidad, eliminando todas las dudas de sus clientes y cerrando ventas automáticamente.",
+    p1: "El Plan Corporativo Básico es velocidad pura. Una arquitectura de ingeniería diseñada para profesionales que buscan impacto inmediato y una conversión sin fricciones en dispositivos móviles.",
+    p2: "El Plan Business Elite es para quienes buscan el dominio absoluto de su nicho. Incluimos optimización SEO profunda y un ecosistema robusto que proyecta una solidez institucional imbatible.",
+    p3: "La Tienda Global es su máquina de facturación autónoma. Gestión de inventario inteligente y pasarelas de pago blindadas para que su imperio comercial no tenga fronteras ni horarios."
+};
 
-        if (x <= 0 || x + size >= w) dx *= -1;
-        if (y <= 0 || y + size >= h) dy *= -1;
+function viajar(el, clave) {
+    const bot = document.getElementById('alien-bot');
+    document.getElementById('main-content').style.filter = "brightness(0.4)";
+    bot.innerText = guion[clave];
+    bot.style.display = 'block';
+    hablar(guion[clave], false);
+}
 
-        pelota.style.left = x + "px";
-        pelota.style.top = y + "px";
+function iniciarAbduccion() {
+    document.getElementById('big-title').classList.add('abducted');
+    hablar(guion.intro, true);
+}
 
-        requestAnimationFrame(animar);
-    }
+function hablar(t, esIntro) {
+    const u = new SpeechSynthesisUtterance(t);
+    u.lang = "es-AR"; u.rate = 1.0;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+    u.onend = () => {
+        if(esIntro) {
+            document.getElementById('intro-layer').style.display = 'none';
+            document.getElementById('main-content').style.opacity = '1';
+        } else {
+            document.getElementById('main-content').style.filter = "brightness(1)";
+            document.getElementById('alien-bot').style.display = 'none';
+        }
+    };
+}
 
-    animar();
-})();
+const sContainer = document.getElementById('stars');
+for(let i=0; i<600; i++) {
+    const st = document.createElement('div'); st.className = 'star';
+    const s = Math.random() * 3 + 'px';
+    st.style.width = s; st.style.height = s;
+    st.style.top = Math.random()*100+'%'; st.style.left = Math.random()*100+'%';
+    sContainer.appendChild(st);
+}
 </script>
-
 </body>
 </html>
