@@ -16,12 +16,12 @@ body{
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Efecto de atmósfera misteriosa */
+/* Efecto visual de atmósfera oscura */
 body::after {
     content: " ";
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
     background-size: 100% 4px;
     pointer-events: none;
     z-index: 10000;
@@ -29,13 +29,13 @@ body::after {
 
 #mute-btn {
     position: fixed; top: 15px; right: 15px; z-index: 6000;
-    width: 45px; height: 45px; border-radius: 50%;
-    background: #ff0000; border: 2px solid #fff;
+    width: 50px; height: 50px; border-radius: 50%;
+    background: #111; border: 2px solid #00ff88;
     cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem; color: white; transition: 0.3s;
-    box-shadow: 0 0 15px rgba(255,0,0,0.5);
+    font-size: 1.4rem; color: #00ff88; transition: 0.3s;
+    box-shadow: 0 0 20px rgba(0,255,136,0.4);
 }
-#mute-btn.muted { background: #666; }
+#mute-btn.muted { background: #444; border-color: #666; color: #666; }
 
 #abduction-flash {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -54,71 +54,64 @@ body::after {
     transition: opacity 1.5s ease;
 }
 .portal-light {
-    position: absolute; width: 250px; height: 250px;
+    position: absolute; width: 280px; height: 280px;
     background: radial-gradient(circle, rgba(0,255,136,0.3) 0%, rgba(0,0,0,0) 70%);
     border-radius: 50%; animation: pulse 2s infinite;
 }
 #big-title {
-    font-size: 2.2rem; font-weight: 900; color: #00ff88;
+    font-size: 2.5rem; font-weight: 900; color: #00ff88;
     text-shadow: 0 0 30px #00ff88; cursor: pointer; z-index: 5001;
-    transition: transform 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045), opacity 0.5s;
-    text-align: center; padding: 0 20px;
+    text-align: center; padding: 0 20px; transition: 1s ease;
 }
-.abducted { transform: translateY(-1000px) scale(0.2); opacity: 0; }
+.abducted { transform: translateY(-1000px) scale(0.1); opacity: 0; }
 @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.3); opacity: 0.7; } }
 
 #main-content { opacity: 0; transition: opacity 2s; display: flex; flex-direction: column; align-items: center; padding-bottom: 50px;}
-#overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 50; display: none; }
+#overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.94); z-index: 50; display: none; }
 
 #mothership {
-    position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
-    font-size: 1.2rem; font-weight: 900; color: #00ff88;
-    text-shadow: 0 0 20px #00ff88; z-index: 1000;
-    transition: all 0.8s ease; text-align: center;
+    position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
+    font-size: 1.3rem; font-weight: 900; color: #00ff88;
+    text-shadow: 0 0 20px #00ff88; z-index: 1000; text-align: center;
 }
 #alien-bot {
-    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-    background: #fff; color: #000; padding: 15px; border-radius: 15px;
-    width: 85vw; max-width: 400px; font-size: 0.85rem; font-weight: bold; display: none;
-    box-shadow: 0 0 30px #00ff88; line-height: 1.4; text-align: center;
+    position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
+    background: #fff; color: #000; padding: 20px; border-radius: 15px;
+    width: 90vw; max-width: 450px; font-size: 0.9rem; font-weight: bold; display: none;
+    box-shadow: 0 0 40px #00ff88; line-height: 1.5; text-align: center;
 }
 
-.stars { position: fixed; width: 100%; height: 100%; z-index: 1; }
+.stars { position: fixed; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 .star { position: absolute; background: white; border-radius: 50%; }
 
 .universe { 
-    position: relative; width: 100%; min-height: 60vh;
+    position: relative; width: 100%; min-height: 65vh;
     display: flex; justify-content: center; align-items: center; 
-    margin-top: 60px;
+    margin-top: 80px;
 }
 #google-sun { 
-    width: 90px; height: 90px; background: #fff; border-radius: 50%; 
+    width: 100px; height: 100px; background: #fff; border-radius: 50%; 
     box-shadow: 0 0 50px #4285F4; display: flex; align-items: center; justify-content: center; 
-    cursor: pointer; z-index: 5; font-size: 2rem;
+    cursor: pointer; z-index: 5; font-size: 2.5rem;
 }
 
 .planet-earth, #saturno-juan { 
-    position: absolute; width: 70px; height: 70px; border-radius: 50%; 
-    cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
+    position: absolute; width: 80px; height: 80px; border-radius: 50%; 
+    cursor: pointer; z-index: 10; display: flex; flex-direction: column; align-items: center;
 }
-.planet-earth { left: 8%; top: 10%; background: radial-gradient(circle at 30% 30%, #2b82c9, #1a4a21, #000); box-shadow: 0 0 20px #2b82c9; }
-#saturno-juan { right: 8%; top: 10%; background: radial-gradient(circle at 30% 30%, #00ff88, #004d2c); box-shadow: 0 0 20px rgba(0,255,136,0.3); }
+.planet-earth { left: 5%; top: 5%; background: radial-gradient(circle at 30% 30%, #2b82c9, #1a4a21, #000); box-shadow: 0 0 25px #2b82c9; }
+#saturno-juan { right: 5%; top: 5%; background: radial-gradient(circle at 30% 30%, #00ff88, #004d2c); box-shadow: 0 0 30px rgba(0,255,136,0.3); }
 
-.ring { 
-    position: absolute; width: 130px; height: 40px; border: 2px solid rgba(0, 255, 136, 0.3); 
-    border-radius: 50%; transform: rotateX(75deg) rotateY(-10deg);
-}
-
-.label-p { position: absolute; bottom: -25px; width: 100px; text-align: center; font-size: 0.6rem; font-weight: bold; color: #00ff88; }
+.label-space { margin-top: 85px; font-size: 0.65rem; font-weight: 900; color: #00ff88; letter-spacing: 1px; white-space: nowrap; }
 
 .social-planet {
-    position: absolute; width: 50px; height: 50px; border-radius: 50%;
+    position: absolute; width: 55px; height: 55px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 900; font-size: 0.5rem; color: white; cursor: pointer; z-index: 15;
+    font-weight: 900; font-size: 0.55rem; color: white; cursor: pointer; z-index: 15;
 }
 @keyframes orbit {
-    from { transform: rotate(0deg) translateX(130px) rotate(0deg); }
-    to { transform: rotate(360deg) translateX(130px) rotate(-360deg); }
+    from { transform: rotate(0deg) translateX(140px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
 }
 .fb { background: #1877f2; animation: orbit 15s linear infinite; }
 .ig { background: radial-gradient(circle at 30% 30%, #f09433, #e1306c, #bc1888); animation: orbit 22s linear infinite; }
@@ -126,46 +119,40 @@ body::after {
 .yt { background: #ff0000; animation: orbit 18s linear infinite; }
 .wa { background: #25d366; animation: orbit 25s linear infinite; }
 
-.plans-row { display: flex; flex-direction: column; gap: 20px; width: 100%; padding: 20px; z-index: 10; }
+.plans-row { display: flex; flex-direction: column; gap: 25px; width: 100%; padding: 20px; z-index: 10; }
 .plan-card {
-    background: rgba(15,15,15,0.9); border: 1px solid #333; 
-    border-radius: 20px; padding: 20px; text-align: center; transition: 0.3s;
+    background: rgba(10,10,10,0.95); border: 1px solid #222; 
+    border-radius: 25px; padding: 25px; text-align: center; transition: 0.4s;
 }
-.plan-card:hover { border-color: #00ff88; }
-.plan-card h2 { color: #00ff88; font-size: 1.5rem; }
-.price-ars { font-size: 1.3rem; font-weight: 900; margin: 5px 0; }
-.price-usd { color: #888; font-size: 0.8rem; margin-bottom: 15px; }
-.benefit-list { list-style: none; text-align: left; font-size: 0.8rem; line-height: 1.6; }
+.plan-card h2 { color: #00ff88; font-size: 1.8rem; margin-bottom: 10px; }
+.price-ars { font-size: 1.5rem; font-weight: 900; }
+.benefit-list { list-style: none; text-align: left; font-size: 0.85rem; line-height: 1.8; margin-top: 15px; }
 
-/* Sección de Comentarios Mejorada */
 .comments-section {
-    width: 90%; max-width: 600px; margin: 40px auto; 
-    background: rgba(15,15,15,0.95); border-radius: 20px; border: 1px solid #333; padding: 20px;
+    width: 95%; max-width: 800px; margin: 50px auto; 
+    background: rgba(10,10,10,0.95); border-radius: 25px; border: 1px solid #222; padding: 25px;
 }
-.comments-section h3 { color: #00ff88; text-align: center; margin-bottom: 20px; font-size: 1.2rem; }
-.comment-box { background: rgba(30,30,30,0.6); padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 3px solid #00ff88; }
-.comment-author { color: #00ff88; font-weight: bold; font-size: 0.85rem; }
-.comment-text { color: #ccc; font-size: 0.8rem; margin: 5px 0; }
-.comment-date { color: #666; font-size: 0.7rem; }
+.comments-section h3 { color: #00ff88; text-align: center; margin-bottom: 25px; font-size: 1.4rem; text-shadow: 0 0 10px #00ff88;}
+.comment-box { background: rgba(20,20,20,0.8); padding: 20px; border-radius: 15px; margin-bottom: 15px; border-left: 4px solid #00ff88; }
+.comment-author { color: #00ff88; font-weight: bold; font-size: 0.95rem; }
+.comment-text { color: #ddd; font-size: 0.9rem; margin-top: 8px; line-height: 1.5; }
 
-/* Nueva Caja para Escribir Comentarios */
-.add-comment { margin-top: 25px; display: flex; flex-direction: column; gap: 10px; }
+.add-comment { margin-top: 30px; display: flex; flex-direction: column; gap: 12px; }
 .add-comment input, .add-comment textarea {
-    background: #222; border: 1px solid #444; color: white; padding: 10px; border-radius: 8px; font-family: inherit;
+    background: #111; border: 1px solid #333; color: white; padding: 12px; border-radius: 10px; font-family: inherit;
 }
 .add-comment button {
-    background: #00ff88; color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: 900; cursor: pointer;
+    background: #00ff88; color: #000; border: none; padding: 15px; border-radius: 10px; font-weight: 900; cursor: pointer; font-size: 1rem;
 }
 
 @media (min-width: 768px) {
     #big-title { font-size: 5rem; }
-    #mothership { font-size: 2.2rem; top: 30px; }
-    .universe { min-height: 80vh; }
+    #mothership { font-size: 2.2rem; }
     .plans-row { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-    .plan-card { width: 320px; }
+    .plan-card { width: 350px; }
     @keyframes orbit {
-        from { transform: rotate(0deg) translateX(280px) rotate(0deg); }
-        to { transform: rotate(360deg) translateX(280px) rotate(-360deg); }
+        from { transform: rotate(0deg) translateX(250px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(250px) rotate(-360deg); }
     }
 }
 </style>
@@ -191,17 +178,18 @@ body::after {
 
     <div class="universe">
         <div class="planet-earth" onclick="viajar(this, 'tierra')">
-            <div class="label-p">LA TIERRA</div>
+            <div class="label-space">LA TIERRA</div>
         </div>
         <div id="google-sun" onclick="viajar(this, 'google')">🌞</div>
+        
         <div class="social-planet fb" onclick="viajar(this, 'fb')">FB</div>
         <div class="social-planet ig" onclick="viajar(this, 'ig')">IG</div>
         <div class="social-planet tk" onclick="viajar(this, 'tk')">TK</div>
         <div class="social-planet yt" onclick="viajar(this, 'yt')">YT</div>
         <div class="social-planet wa" onclick="viajar(this, 'wa')">WA</div>
+
         <div id="saturno-juan" onclick="viajar(this, 'historia')">
-            <div class="ring"></div>
-            <div class="label-p">SATURNO</div>
+            <div class="label-space">SATURNO</div>
         </div>
     </div>
 
@@ -247,18 +235,20 @@ body::after {
             <div class="comment-box">
                 <div class="comment-author">⭐ Rodrigo Fernández - Mecánica</div>
                 <div class="comment-text">Increíble lo que Juan logró con mi taller. Antes dependía del boca en boca, ahora Google me trae clientes todos los días. La inversión se pagó sola en dos meses.</div>
-                <div class="comment-date">Hace 3 días</div>
             </div>
             <div class="comment-box">
                 <div class="comment-author">⭐ Valentina Ríos - E-commerce</div>
-                <div class="comment-text">Pasé de vender por Instagram stories a tener una tienda profesional que factura sola. Mejor decisión que tomé.</div>
-                <div class="comment-date">Hace 1 semana</div>
+                <div class="comment-text">Pasé de vender por Instagram stories a tener una tienda profesional que factura sola. El sistema de Mercado Pago automatizado es una locura.</div>
+            </div>
+            <div class="comment-box">
+                <div class="comment-author">⭐ Martín Casal - Estudio Jurídico</div>
+                <div class="comment-text">Ahora aparezco primero en Google cuando buscan "abogado". Las consultas no paran de llegar. Profesionalismo total.</div>
             </div>
         </div>
 
         <div class="add-comment">
-            <input type="text" id="com-name" placeholder="Tu nombre o negocio...">
-            <textarea id="com-text" placeholder="Escribe tu mensaje espacial..."></textarea>
+            <input type="text" id="com-name" placeholder="Tu Nombre o Marca...">
+            <textarea id="com-text" rows="3" placeholder="Escribe tu testimonio aquí..."></textarea>
             <button onclick="postComment()">ENVIAR TRANSMISIÓN</button>
         </div>
     </div>
@@ -268,9 +258,9 @@ body::after {
 const VALOR_BLUE = 1250; 
 let vozMuteada = false;
 
-// Fondo de estrellas
+// Fondo de estrellas dinámico
 const sContainer = document.getElementById('stars');
-for(let i=0; i<150; i++) {
+for(let i=0; i<200; i++) {
     const st = document.createElement('div');
     st.className = 'star';
     st.style.width = '2px'; st.style.height = '2px';
@@ -278,7 +268,6 @@ for(let i=0; i<150; i++) {
     sContainer.appendChild(st);
 }
 
-// Precios USD
 document.querySelectorAll('.price-ars').forEach((p, i) => {
     const ars = p.getAttribute('data-ars');
     document.getElementById(`usd-p${i+1}`).innerText = `~ ${(ars/VALOR_BLUE).toFixed(0)} USD (Blue)`;
@@ -301,7 +290,7 @@ const guion = {
 
 function iniciarAbduccion() {
     document.getElementById('big-title').classList.add('abducted');
-    setTimeout(() => hablar(guion.intro, true), 500);
+    setTimeout(() => hablar(guion.intro, true), 800);
 }
 
 let activo = null;
@@ -316,9 +305,7 @@ function viajar(el, clave) {
     el.classList.add('highlight');
     activo = el;
 
-    // Posicionamiento centrado para móvil
-    const rect = el.getBoundingClientRect();
-    ship.style.top = "15%"; 
+    ship.style.top = "10%";
     
     setTimeout(() => {
         bot.innerText = guion[clave];
@@ -329,7 +316,7 @@ function viajar(el, clave) {
 
 function hablar(t, esIntro) {
     if(vozMuteada) {
-        if(esIntro) transicionFinal();
+        if(esIntro) desbloquearWeb();
         return;
     }
 
@@ -338,14 +325,23 @@ function hablar(t, esIntro) {
     
     const u = new SpeechSynthesisUtterance(t);
     u.lang = "es-AR";
-    u.pitch = 0.5; u.rate = 0.85; 
+    
+    // CONFIGURACIÓN DE VOZ DE HOMBRE PROFUNDA
+    u.pitch = 0.4;  // Muy grave
+    u.rate = 0.85;  // Pausado y serio
+    u.volume = 1;
+
+    // Intentar forzar voz masculina
+    const voices = window.speechSynthesis.getVoices();
+    const maleVoice = voices.find(v => v.name.includes('Google español') || v.name.includes('Microsoft Pablo') || v.name.includes('Male'));
+    if(maleVoice) u.voice = maleVoice;
 
     flash.classList.add('flicker-on');
     window.speechSynthesis.speak(u);
 
     u.onend = () => {
         flash.classList.remove('flicker-on');
-        if(esIntro) transicionFinal();
+        if(esIntro) desbloquearWeb();
         else {
             setTimeout(() => {
                 document.getElementById('overlay').style.display = 'none';
@@ -356,7 +352,7 @@ function hablar(t, esIntro) {
     };
 }
 
-function transicionFinal() {
+function desbloquearWeb() {
     document.getElementById('intro-layer').style.opacity = '0';
     setTimeout(() => {
         document.getElementById('intro-layer').style.display = 'none';
@@ -367,15 +363,12 @@ function transicionFinal() {
 function postComment() {
     const name = document.getElementById('com-name').value;
     const text = document.getElementById('com-text').value;
-    if(!name || !text) return alert("Completa la transmisión");
+    if(!name || !text) return;
 
-    const container = document.getElementById('comments-container');
-    const div = document.createElement('div');
-    div.className = 'comment-box';
-    div.innerHTML = `<div class="comment-author">⭐ ${name}</div>
-                     <div class="comment-text">${text}</div>
-                     <div class="comment-date">Ahora mismo</div>`;
-    container.prepend(div);
+    const box = document.createElement('div');
+    box.className = 'comment-box';
+    box.innerHTML = `<div class="comment-author">⭐ ${name}</div><div class="comment-text">${text}</div>`;
+    document.getElementById('comments-container').prepend(box);
     document.getElementById('com-name').value = "";
     document.getElementById('com-text').value = "";
 }
@@ -385,6 +378,8 @@ function toggleMute() {
     document.getElementById('mute-btn').innerHTML = vozMuteada ? '🔇' : '🔊';
     if(vozMuteada) window.speechSynthesis.cancel();
 }
+
+window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 </script>
 </body>
 </html>
