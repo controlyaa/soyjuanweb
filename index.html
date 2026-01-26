@@ -89,10 +89,40 @@ body::after {
     display: flex; justify-content: center; align-items: center; 
     margin-top: 80px;
 }
-#google-sun { 
-    width: 100px; height: 100px; background: #fff; border-radius: 50%; 
-    box-shadow: 0 0 50px #4285F4; display: flex; align-items: center; justify-content: center; 
-    cursor: pointer; z-index: 5; font-size: 2.5rem;
+
+/* LUNA BLANCA GRANDE Y RADIANTE */
+#google-moon { 
+    width: 150px; height: 150px; 
+    background: radial-gradient(circle at 35% 35%, #ffffff, #f5f5f5, #e0e0e0); 
+    border-radius: 50%; 
+    box-shadow: 
+        0 0 80px rgba(255, 255, 255, 0.9),
+        0 0 120px rgba(255, 255, 255, 0.6),
+        0 0 160px rgba(255, 255, 255, 0.3),
+        inset -15px -15px 40px rgba(0, 0, 0, 0.15);
+    display: flex; align-items: center; justify-content: center; 
+    cursor: pointer; z-index: 5; 
+    position: relative;
+    animation: moonGlow 3s ease-in-out infinite;
+}
+
+@keyframes moonGlow {
+    0%, 100% { 
+        box-shadow: 
+            0 0 80px rgba(255, 255, 255, 0.9),
+            0 0 120px rgba(255, 255, 255, 0.6),
+            0 0 160px rgba(255, 255, 255, 0.3),
+            inset -15px -15px 40px rgba(0, 0, 0, 0.15);
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 
+            0 0 100px rgba(255, 255, 255, 1),
+            0 0 150px rgba(255, 255, 255, 0.8),
+            0 0 200px rgba(255, 255, 255, 0.5),
+            inset -15px -15px 40px rgba(0, 0, 0, 0.15);
+        transform: scale(1.05);
+    }
 }
 
 .planet-earth, #saturno-juan { 
@@ -100,9 +130,64 @@ body::after {
     cursor: pointer; z-index: 10; display: flex; flex-direction: column; align-items: center;
 }
 .planet-earth { left: 5%; top: 5%; background: radial-gradient(circle at 30% 30%, #2b82c9, #1a4a21, #000); box-shadow: 0 0 25px #2b82c9; }
-#saturno-juan { right: 5%; top: 5%; background: radial-gradient(circle at 30% 30%, #00ff88, #004d2c); box-shadow: 0 0 30px rgba(0,255,136,0.3); }
+#saturno-juan { 
+    right: 5%; top: 5%; 
+    background: radial-gradient(circle at 30% 30%, #00ff88, #004d2c); 
+    box-shadow: 0 0 30px rgba(0,255,136,0.3); 
+    position: relative;
+}
+
+/* ANILLO DE SATURNO PRO */
+#saturno-juan::before {
+    content: "";
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    border: 4px solid rgba(0, 255, 136, 0.7);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateX(75deg);
+    box-shadow: 
+        inset 0 0 25px rgba(0, 255, 136, 0.4),
+        0 0 25px rgba(0, 255, 136, 0.4);
+    animation: ringRotate 10s linear infinite;
+    z-index: -1;
+}
+
+@keyframes ringRotate {
+    from { transform: translate(-50%, -50%) rotateX(75deg) rotateZ(0deg); }
+    to { transform: translate(-50%, -50%) rotateX(75deg) rotateZ(360deg); }
+}
 
 .label-space { margin-top: 85px; font-size: 0.65rem; font-weight: 900; color: #00ff88; letter-spacing: 1px; white-space: nowrap; }
+
+/* SATÉLITE FLOTANTE */
+#satelite {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #888, #bbb);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 20;
+    box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    animation: floatSatelite 8s ease-in-out infinite;
+    top: 50%;
+    left: 50%;
+}
+
+@keyframes floatSatelite {
+    0% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+    25% { transform: translate(-50%, -50%) translateY(-40px) rotate(90deg); }
+    50% { transform: translate(-50%, -50%) translateY(0px) rotate(180deg); }
+    75% { transform: translate(-50%, -50%) translateY(40px) rotate(270deg); }
+    100% { transform: translate(-50%, -50%) translateY(0px) rotate(360deg); }
+}
 
 .social-planet {
     position: absolute; width: 55px; height: 55px; border-radius: 50%;
@@ -110,8 +195,8 @@ body::after {
     font-weight: 900; font-size: 0.55rem; color: white; cursor: pointer; z-index: 15;
 }
 @keyframes orbit {
-    from { transform: rotate(0deg) translateX(140px) rotate(0deg); }
-    to { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
+    from { transform: rotate(0deg) translateX(180px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(180px) rotate(-360deg); }
 }
 .fb { background: #1877f2; animation: orbit 15s linear infinite; }
 .ig { background: radial-gradient(circle at 30% 30%, #f09433, #e1306c, #bc1888); animation: orbit 22s linear infinite; }
@@ -150,9 +235,10 @@ body::after {
     #mothership { font-size: 2.2rem; }
     .plans-row { flex-direction: row; flex-wrap: wrap; justify-content: center; }
     .plan-card { width: 350px; }
+    #google-moon { width: 180px; height: 180px; }
     @keyframes orbit {
-        from { transform: rotate(0deg) translateX(250px) rotate(0deg); }
-        to { transform: rotate(360deg) translateX(250px) rotate(-360deg); }
+        from { transform: rotate(0deg) translateX(280px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(280px) rotate(-360deg); }
     }
 }
 </style>
@@ -180,7 +266,10 @@ body::after {
         <div class="planet-earth" onclick="viajar(this, 'tierra')">
             <div class="label-space">LA TIERRA</div>
         </div>
-        <div id="google-sun" onclick="viajar(this, 'google')">🌞</div>
+        
+        <div id="google-moon" onclick="viajar(this, 'google')"></div>
+        
+        <div id="satelite" onclick="viajar(this, 'satelite')">🛰️</div>
         
         <div class="social-planet fb" onclick="viajar(this, 'fb')">FB</div>
         <div class="social-planet ig" onclick="viajar(this, 'ig')">IG</div>
@@ -257,6 +346,7 @@ body::after {
 <script>
 const VALOR_BLUE = 1250; 
 let vozMuteada = false;
+let voicesLoaded = false;
 
 // Fondo de estrellas dinámico
 const sContainer = document.getElementById('stars');
@@ -277,7 +367,8 @@ const guion = {
     intro: "Bienvenido al centro de mando. Escucha con atención... pero atención de verdad. Todo empezó en Buenos Aires, Congreso, Monserrat específicamente, cerca de la plaza, bajo una lluvia eléctrica. Tenía en mis manos archivos encriptados... una lista negra: miles de negocios condenados a ser fantasmas digitales, sin rumbo, invisibles. Ahí comprendí que el código es el arma más potente del siglo veintiuno. Soy Juan Web nació como la resistencia... para los que se niegan a ser borrados por el algoritmo. He rescatado marcas muertas, devolviéndolas a la vida con tecnología superior. No es azar que estés aquí. La pregunta es: ¿Seguirás en las sombras digitales... o serás el dueño de tu propio destino comercial? El tiempo se agota. La solución está en tus manos. Iniciando abducción en tres... dos... uno.",
     tierra: "¡La Tierra! El planeta donde nació mi misión. Mi objetivo es que cualquier terrícola pueda tener un sitio premium sin gastar una fortuna. ¡Tecnología para todos!",
     historia: "Saturno es el laboratorio de Soy Juan Web. Aunque somos nuevos, tenemos más potencia que un motor de plasma. No somos una agencia aburrida; somos tus copilotos.",
-    google: "El Sol de Google. El núcleo del poder digital. Si tu web no brilla aquí, simplemente no existís. Yo descifré sus algoritmos, sus patrones ocultos. Me encargo de que cuando alguien busque tus servicios, seas la estrella más brillante del universo digital. Google es el portal... y yo tengo las coordenadas exactas.",
+    google: "La Luna de Google. El satélite que ilumina toda la red digital. Es el faro que guía a millones de usuarios hacia tu negocio. Desde aquí controlo la luz que proyecta tu marca en el universo digital. Cuando alguien busca lo que ofrecés, yo me aseguro de que tu sitio brille más fuerte que todos. La Luna nunca se apaga, y tu presencia tampoco.",
+    satelite: "El satélite de comunicaciones. Transmite tu señal comercial a toda la galaxia digital. Representa la conexión constante, el monitoreo en tiempo real, la analítica que nunca duerme. Desde aquí observo el comportamiento de tus clientes, optimizo campañas, ajusto estrategias. Es mi centro de operaciones para mantener tu negocio siempre visible, siempre conectado.",
     fb: "Facebook: Sigue siendo el gigante para conectar con clientes locales y armar comunidades fieles.",
     ig: "¡Instagram! El planeta de la imagen. Aquí es fundamental el contenido visual. Te ayudo a crear Reels que enganchen y publicidad paga de alto rendimiento.",
     tk: "TikTok: Viralidad pura. Creamos estrategias de video corto para que tu marca se vuelva tendencia en tiempo récord.",
@@ -287,6 +378,63 @@ const guion = {
     p2: "Escuchá bien el Plan Estándar: ciento noventa mil pesos argentinos. Esto ya es otra dimensión. Web multi-sección con blog autogestionable, panel de control para que edites todo vos mismo, SEO profesional para que Google te posicione en primera página. Incluye optimización de velocidad, integración con redes sociales, formularios de contacto avanzados. María tenía un estudio contable en Palermo. Nadie la encontraba online. Implementamos este plan: blog con contenido estratégico, SEO local optimizado. En dos meses estaba en el top tres de Google para 'contador Palermo'. Sus clientes se triplicaron. El código cambió su realidad.",
     p3: "Ahora sí... el Plan Avanzado. Trescientos cincuenta mil pesos argentinos. Esto es la nave nodriza completa. Tienda online profesional con carrito de compras, integración total con Mercado Pago, sistema de gestión de stock en tiempo real, panel de ventas con estadísticas, sistema de cupones y descuentos, envíos automáticos. Soporte VIP directo conmigo. Lucía vendía ropa por Instagram, perdía el cincuenta por ciento de las ventas porque no tenía forma de cobrar rápido. Le montamos la tienda completa. Sistema automatizado: el cliente compra, paga, recibe confirmación, todo sin que ella mueva un dedo. En cuatro meses facturó tres veces más que todo el año anterior. Esta es la tecnología que separa a los que sobreviven de los que dominan el mercado."
 };
+
+// Cargar voces disponibles
+function loadVoices() {
+    return new Promise((resolve) => {
+        let voices = window.speechSynthesis.getVoices();
+        if (voices.length > 0) {
+            voicesLoaded = true;
+            resolve(voices);
+        } else {
+            window.speechSynthesis.onvoiceschanged = () => {
+                voices = window.speechSynthesis.getVoices();
+                voicesLoaded = true;
+                resolve(voices);
+            };
+        }
+    });
+}
+
+// Seleccionar mejor voz masculina disponible
+function getMaleVoice() {
+    const voices = window.speechSynthesis.getVoices();
+    
+    // Prioridad de voces masculinas para español
+    const preferredVoices = [
+        'Microsoft Pablo - Spanish (Argentina)',
+        'Google español de Estados Unidos',
+        'Jorge', // iOS/Mac
+        'Juan', // iOS/Mac
+        'Diego', // iOS/Mac
+        'es-AR', // Android
+        'es-US', // Android
+        'Spanish (Latin America)',
+        'Spanish Argentina'
+    ];
+    
+    // Buscar voz preferida
+    for (const preferred of preferredVoices) {
+        const voice = voices.find(v => 
+            v.name.includes(preferred) || 
+            v.lang.includes('es-AR') || 
+            v.lang.includes('es-US')
+        );
+        if (voice && !voice.name.toLowerCase().includes('female') && 
+            !voice.name.toLowerCase().includes('mujer')) {
+            return voice;
+        }
+    }
+    
+    // Fallback: cualquier voz en español que no sea explícitamente femenina
+    return voices.find(v => 
+        (v.lang.startsWith('es') || v.lang.includes('Spanish')) &&
+        !v.name.toLowerCase().includes('female') &&
+        !v.name.toLowerCase().includes('mujer') &&
+        !v.name.toLowerCase().includes('mónica') &&
+        !v.name.toLowerCase().includes('paulina')
+    ) || voices.find(v => v.lang.startsWith('es'));
+}
 
 function iniciarAbduccion() {
     document.getElementById('big-title').classList.add('abducted');
@@ -314,10 +462,15 @@ function viajar(el, clave) {
     }, 400);
 }
 
-function hablar(t, esIntro) {
+async function hablar(t, esIntro) {
     if(vozMuteada) {
         if(esIntro) desbloquearWeb();
         return;
+    }
+
+    // Asegurar que las voces estén cargadas
+    if (!voicesLoaded) {
+        await loadVoices();
     }
 
     const flash = document.getElementById('abduction-flash');
@@ -326,15 +479,17 @@ function hablar(t, esIntro) {
     const u = new SpeechSynthesisUtterance(t);
     u.lang = "es-AR";
     
-    // CONFIGURACIÓN DE VOZ DE HOMBRE PROFUNDA
-    u.pitch = 0.4;  // Muy grave
-    u.rate = 0.85;  // Pausado y serio
-    u.volume = 1;
+    // CONFIGURACIÓN DE VOZ MASCULINA PROFUNDA
+    u.pitch = 0.5;  // Grave (entre 0-2, default 1)
+    u.rate = 0.85;  // Velocidad pausada y seria
+    u.volume = 1;   // Volumen máximo
 
-    // Intentar forzar voz masculina
-    const voices = window.speechSynthesis.getVoices();
-    const maleVoice = voices.find(v => v.name.includes('Google español') || v.name.includes('Microsoft Pablo') || v.name.includes('Male'));
-    if(maleVoice) u.voice = maleVoice;
+    // Intentar usar voz masculina
+    const maleVoice = getMaleVoice();
+    if (maleVoice) {
+        u.voice = maleVoice;
+        console.log('Usando voz:', maleVoice.name);
+    }
 
     flash.classList.add('flicker-on');
     window.speechSynthesis.speak(u);
@@ -349,6 +504,13 @@ function hablar(t, esIntro) {
                 if(activo) activo.classList.remove('highlight');
             }, 3000);
         }
+    };
+    
+    // Manejar errores
+    u.onerror = (e) => {
+        console.error('Error en síntesis de voz:', e);
+        flash.classList.remove('flicker-on');
+        if(esIntro) desbloquearWeb();
     };
 }
 
@@ -375,11 +537,14 @@ function postComment() {
 
 function toggleMute() {
     vozMuteada = !vozMuteada;
-    document.getElementById('mute-btn').innerHTML = vozMuteada ? '🔇' : '🔊';
+    const btn = document.getElementById('mute-btn');
+    btn.innerHTML = vozMuteada ? '🔇' : '🔊';
+    btn.classList.toggle('muted', vozMuteada);
     if(vozMuteada) window.speechSynthesis.cancel();
 }
 
-window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+// Cargar voces al inicio
+loadVoices();
 </script>
 </body>
 </html>
