@@ -1,547 +1,182 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>SOY JUAN WEB - Galaxia Pro Final</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-    font-family: 'Space Grotesk', sans-serif;
-    background: #000;
-    color: white;
-    min-height: 100vh;
-    overflow-x: hidden;
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* Efecto visual de atmósfera oscura */
-body::after {
-    content: " ";
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
-    background-size: 100% 4px;
-    pointer-events: none;
-    z-index: 10000;
-}
-
-/* BOTÓN WHATSAPP FLOTANTE */
-.whatsapp-fixed {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    width: 65px;
-    height: 65px;
-    background-color: #25d366;
-    color: #fff;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 35px;
-    box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: pulse-wa 2s infinite;
-}
-
-.whatsapp-fixed:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 35px rgba(37, 211, 102, 0.9);
-}
-
-@keyframes pulse-wa {
-    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-    70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-}
-
-#mute-btn {
-    position: fixed; top: 15px; right: 15px; z-index: 6000;
-    width: 50px; height: 50px; border-radius: 50%;
-    background: #111; border: 2px solid #00ff88;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem; color: #00ff88; transition: 0.3s;
-    box-shadow: 0 0 20px rgba(0,255,136,0.4);
-}
-#mute-btn.muted { background: #444; border-color: #666; color: #666; }
-
-#abduction-flash {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: radial-gradient(circle, rgba(0, 255, 136, 0.4) 0%, rgba(0, 0, 0, 0) 70%);
-    z-index: 9999; pointer-events: none; display: none;
-    mix-blend-mode: screen;
-}
-.flicker-on { display: block !important; animation: flickerAnim 0.1s infinite; }
-@keyframes flickerAnim { 0% { opacity: 0.2; } 50% { opacity: 0.8; } 100% { opacity: 0.3; } }
-
-#intro-layer {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: #000; z-index: 5000;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    transition: opacity 1.5s ease;
-}
-.portal-light {
-    position: absolute; width: 280px; height: 280px;
-    background: radial-gradient(circle, rgba(0,255,136,0.3) 0%, rgba(0,0,0,0) 70%);
-    border-radius: 50%; animation: pulse 2s infinite;
-}
-#big-title {
-    font-size: 2.5rem; font-weight: 900; color: #00ff88;
-    text-shadow: 0 0 30px #00ff88; cursor: pointer; z-index: 5001;
-    text-align: center; padding: 0 20px; transition: 1s ease;
-}
-.abducted { transform: translateY(-1000px) scale(0.1); opacity: 0; }
-@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.3); opacity: 0.7; } }
-
-#main-content { opacity: 0; transition: opacity 2s; display: flex; flex-direction: column; align-items: center; padding-bottom: 50px;}
-#overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.94); z-index: 50; display: none; }
-
-#mothership {
-    position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
-    font-size: 1.3rem; font-weight: 900; color: #00ff88;
-    text-shadow: 0 0 20px #00ff88; z-index: 1000; text-align: center;
-}
-#alien-bot {
-    position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
-    background: #fff; color: #000; padding: 20px; border-radius: 15px;
-    width: 90vw; max-width: 450px; font-size: 0.9rem; font-weight: bold; display: none;
-    box-shadow: 0 0 40px #00ff88; line-height: 1.5; text-align: center;
-}
-
-.stars { position: fixed; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-.star { position: absolute; background: white; border-radius: 50%; }
-
-.universe { 
-    position: relative; width: 100%; min-height: 65vh;
-    display: flex; justify-content: center; align-items: center; 
-    margin-top: 80px;
-}
-
-/* LUNA BLANCA GRANDE Y RADIANTE */
-#google-moon { 
-    width: 150px; height: 150px; 
-    background: radial-gradient(circle at 35% 35%, #ffffff, #f5f5f5, #e0e0e0); 
-    border-radius: 50%; 
-    box-shadow: 
-        0 0 80px rgba(255, 255, 255, 0.9),
-        0 0 120px rgba(255, 255, 255, 0.6),
-        0 0 160px rgba(255, 255, 255, 0.3),
-        inset -15px -15px 40px rgba(0, 0, 0, 0.15);
-    display: flex; align-items: center; justify-content: center; 
-    cursor: pointer; z-index: 5; 
-    position: relative;
-    animation: moonGlow 3s ease-in-out infinite;
-}
-
-@keyframes moonGlow {
-    0%, 100% { 
-        box-shadow: 
-            0 0 80px rgba(255, 255, 255, 0.9),
-            0 0 120px rgba(255, 255, 255, 0.6),
-            0 0 160px rgba(255, 255, 255, 0.3),
-            inset -15px -15px 40px rgba(0, 0, 0, 0.15);
-        transform: scale(1);
-    }
-    50% { 
-        box-shadow: 
-            0 0 100px rgba(255, 255, 255, 1),
-            0 0 150px rgba(255, 255, 255, 0.8),
-            0 0 200px rgba(255, 255, 255, 0.5),
-            inset -15px -15px 40px rgba(0, 0, 0, 0.15);
-        transform: scale(1.05);
-    }
-}
-
-.planet-earth, #saturno-juan { 
-    position: absolute; width: 80px; height: 80px; border-radius: 50%; 
-    cursor: pointer; z-index: 10; display: flex; flex-direction: column; align-items: center;
-}
-.planet-earth { left: 5%; top: 5%; background: radial-gradient(circle at 30% 30%, #2b82c9, #1a4a21, #000); box-shadow: 0 0 25px #2b82c9; }
-#saturno-juan { 
-    right: 5%; top: 5%; 
-    background: radial-gradient(circle at 30% 30%, #00ff88, #004d2c); 
-    box-shadow: 0 0 30px rgba(0,255,136,0.3); 
-    position: relative;
-}
-
-/* ANILLO DE SATURNO PRO */
-#saturno-juan::before {
-    content: "";
-    position: absolute;
-    width: 140px;
-    height: 140px;
-    border: 4px solid rgba(0, 255, 136, 0.7);
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotateX(75deg);
-    box-shadow: 
-        inset 0 0 25px rgba(0, 255, 136, 0.4),
-        0 0 25px rgba(0, 255, 136, 0.4);
-    animation: ringRotate 10s linear infinite;
-    z-index: -1;
-}
-
-@keyframes ringRotate {
-    from { transform: translate(-50%, -50%) rotateX(75deg) rotateZ(0deg); }
-    to { transform: translate(-50%, -50%) rotateX(75deg) rotateZ(360deg); }
-}
-
-.label-space { margin-top: 85px; font-size: 0.65rem; font-weight: 900; color: #00ff88; letter-spacing: 1px; white-space: nowrap; }
-
-/* SATÉLITE FLOTANTE */
-#satelite {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #888, #bbb);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    cursor: pointer;
-    z-index: 20;
-    box-shadow: 0 0 20px rgba(255,255,255,0.5);
-    animation: floatSatelite 8s ease-in-out infinite;
-    top: 50%;
-    left: 50%;
-}
-
-@keyframes floatSatelite {
-    0% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
-    25% { transform: translate(-50%, -50%) translateY(-40px) rotate(90deg); }
-    50% { transform: translate(-50%, -50%) translateY(0px) rotate(180deg); }
-    75% { transform: translate(-50%, -50%) translateY(40px) rotate(270deg); }
-    100% { transform: translate(-50%, -50%) translateY(0px) rotate(360deg); }
-}
-
-.social-planet {
-    position: absolute; width: 55px; height: 55px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 900; font-size: 0.55rem; color: white; cursor: pointer; z-index: 15;
-}
-@keyframes orbit {
-    from { transform: rotate(0deg) translateX(180px) rotate(0deg); }
-    to { transform: rotate(360deg) translateX(180px) rotate(-360deg); }
-}
-.fb { background: #1877f2; animation: orbit 15s linear infinite; }
-.ig { background: radial-gradient(circle at 30% 30%, #f09433, #e1306c, #bc1888); animation: orbit 22s linear infinite; }
-.tk { background: #000; border: 1px solid #ff0050; animation: orbit 28s linear infinite; }
-.yt { background: #ff0000; animation: orbit 18s linear infinite; }
-.wa { background: #25d366; animation: orbit 25s linear infinite; }
-
-.plans-row { display: flex; flex-direction: column; gap: 25px; width: 100%; padding: 20px; z-index: 10; }
-.plan-card {
-    background: rgba(10,10,10,0.95); border: 1px solid #222; 
-    border-radius: 25px; padding: 25px; text-align: center; transition: 0.4s;
-}
-.plan-card h2 { color: #00ff88; font-size: 1.8rem; margin-bottom: 10px; }
-.price-ars { font-size: 1.5rem; font-weight: 900; }
-.benefit-list { list-style: none; text-align: left; font-size: 0.85rem; line-height: 1.8; margin-top: 15px; }
-
-.comments-section {
-    width: 95%; max-width: 800px; margin: 50px auto; 
-    background: rgba(10,10,10,0.95); border-radius: 25px; border: 1px solid #222; padding: 25px;
-}
-.comments-section h3 { color: #00ff88; text-align: center; margin-bottom: 25px; font-size: 1.4rem; text-shadow: 0 0 10px #00ff88;}
-.comment-box { background: rgba(20,20,20,0.8); padding: 20px; border-radius: 15px; margin-bottom: 15px; border-left: 4px solid #00ff88; }
-.comment-author { color: #00ff88; font-weight: bold; font-size: 0.95rem; }
-.comment-text { color: #ddd; font-size: 0.9rem; margin-top: 8px; line-height: 1.5; }
-
-.add-comment { margin-top: 30px; display: flex; flex-direction: column; gap: 12px; }
-.add-comment input, .add-comment textarea {
-    background: #111; border: 1px solid #333; color: white; padding: 12px; border-radius: 10px; font-family: inherit;
-}
-.add-comment button {
-    background: #00ff88; color: #000; border: none; padding: 15px; border-radius: 10px; font-weight: 900; cursor: pointer; font-size: 1rem;
-}
-
-@media (min-width: 768px) {
-    #big-title { font-size: 5rem; }
-    #mothership { font-size: 2.2rem; }
-    .plans-row { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-    .plan-card { width: 350px; }
-    #google-moon { width: 180px; height: 180px; }
-    @keyframes orbit {
-        from { transform: rotate(0deg) translateX(280px) rotate(0deg); }
-        to { transform: rotate(360deg) translateX(280px) rotate(-360deg); }
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoyJuanWeb | Desarrollo Web</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div id="abduction-flash"></div>
-<div id="mute-btn" onclick="toggleMute()">🔊</div>
+<header class="top">
+    <h1>SOYJUANWEB</h1>
+    <p class="subtitle">
+        Diseño web profesional · Adaptado a celular · Presencia digital real
+    </p>
+    <p class="ubicacion">
+        📍 Provincia de Buenos Aires · La Matanza · San Justo
+    </p>
+</header>
 
-<a href="https://wa.me/5491140970446" class="whatsapp-fixed" target="_blank">
-    <svg viewBox="0 0 448 512" width="30" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.4-8.6-44.6-27.4-16.5-14.7-27.6-32.8-30.8-38.3-3.2-5.6-.3-8.6 2.5-11.4 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.2 3.7-5.5 5.5-9.3 1.9-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.8 23.5 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
-</a>
+<main class="hero">
 
-<div id="intro-layer">
-    <div class="portal-light"></div>
-    <h1 id="big-title" onclick="iniciarAbduccion()">SOY JUAN WEB</h1>
+    <div class="contenido">
+        <div class="info">
+            <h2>Tu web, hecha para vender</h2>
+            <p>
+                Desarrollo sitios web modernos, rápidos y optimizados para celulares.
+                Ideal para emprendedores, comercios y profesionales que buscan
+                presencia digital real.
+            </p>
+
+            <div class="acciones">
+                <a href="https://wa.me/541140970446" target="_blank" class="btn whatsapp">📲 WhatsApp</a>
+                <a href="mailto:soyjuanwebb@yahoo.com" class="btn mail">✉️ Email</a>
+            </div>
+        </div>
+
+        <div class="laptop">
+            <div class="pantalla">
+                <span>&lt;/&gt; SOYJUANWEB</span>
+            </div>
+            <div class="base"></div>
+        </div>
+    </div>
+
+    <section class="planes">
+        <div class="plan destacado">
+            <h3>Plan Básico</h3>
+            <div class="precio">$80.000</div>
+            <p>Landing page<br>Diseño responsive<br>Publicación online</p>
+        </div>
+
+        <div class="plan">
+            <h3>Plan Estándar</h3>
+            <div class="precio">$190.000</div>
+            <p>Web completa<br>SEO inicial<br>Soporte básico</p>
+        </div>
+
+        <div class="plan">
+            <h3>Plan Avanzado</h3>
+            <div class="precio">$290.000</div>
+            <p>SEO avanzado<br>Optimización<br>Más visibilidad</p>
+        </div>
+    </section>
+
+    <section class="modelos">
+        <h2>Modelos de páginas</h2>
+        <p class="modelos-sub">Diseños reales según tu rubro</p>
+
+        <div class="galeria">
+
+            <div class="mockup">
+                <img src="comida.png" alt="Web de comida">
+                <div class="mockup-info">
+                    <h3>🍔 Gastronomía</h3>
+                    <p>Restaurantes · Delivery · Menús</p>
+                </div>
+            </div>
+
+            <div class="mockup">
+                <img src="zapatillas.png" alt="Web de zapatillas">
+                <div class="mockup-info">
+                
+                    <h3>👟 Calzados</h3>
+                    <p>Tiendas · Catálogos · Ventas</p>
+                </div>
+            </div>
+
+            <div class="mockup">
+                <img src="celulares.png" alt="Web de celulares">
+                <div class="mockup-info">
+                    <h3>📱 Celulares</h3>
+                    <p>Tecnología · Accesorios · Servicio</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<section class="redes-sociales">
+    <h2>Publicidad en redes sociales</h2>
+    <p class="subtitulo-redes">
+        Promocionamos tu contenido según tus preferencias semanalmente
+    </p>
+
+    <div class="redes-galeria">
+
+        <div class="red-social">
+            <img src="facebook.png">
+            <h3>Facebook</h3>
+            <p>Publicidad semanal en Facebook.</p>
+        </div>
+
+        <div class="red-social">
+            <img src="instagram.png">
+            <h3>Instagram</h3>
+            <p>Marketing y reels profesionales.</p>
+        </div>
+
+        <div class="red-social">
+            <img src="tiktok.png">
+            <h3>TikTok</h3>
+            <p>Campañas orientadas a resultados.</p>
+        </div>
+
+        <div class="red-social">
+            <img src="youtube.png">
+            <h3>YouTube</h3>
+            <p>Promoción de videos semanal.</p>
+        </div>
+
+    </div>
+</section>
+
+<div class="iphone-float">
+    <div class="iphone">
+        <div class="iphone-screen"></div>
+        <div class="iphone-notch"></div>
+        <div class="iphone-logo-apple"></div>
+        <div class="iphone-logo-wa">📲</div>
+    </div>
 </div>
 
-<div id="main-content">
-    <div id="overlay"></div>
-    <div class="stars" id="stars"></div>
-    
-    <div id="mothership">
-        <div id="alien-bot"></div>
-        SOY JUAN WEB
-    </div>
+<div class="tech-lines"></div>
 
-    <div class="universe">
-        <div class="planet-earth" onclick="viajar(this, 'tierra')">
-            <div class="label-space">LA TIERRA</div>
-        </div>
-        
-        <div id="google-moon" onclick="viajar(this, 'google')"></div>
-        
-        <div id="satelite" onclick="viajar(this, 'satelite')">🛰️</div>
-        
-        <div class="social-planet fb" onclick="viajar(this, 'fb')">FB</div>
-        <div class="social-planet ig" onclick="viajar(this, 'ig')">IG</div>
-        <div class="social-planet tk" onclick="viajar(this, 'tk')">TK</div>
-        <div class="social-planet yt" onclick="viajar(this, 'yt')">YT</div>
-        <div class="social-planet wa" onclick="viajar(this, 'wa')">WA</div>
-
-        <div id="saturno-juan" onclick="viajar(this, 'historia')">
-            <div class="label-space">SATURNO</div>
-        </div>
-    </div>
-
-    <div class="plans-row">
-        <div class="plan-card" onclick="viajar(this, 'p1')">
-            <h2>BÁSICO</h2>
-            <div class="price-ars" data-ars="80000">$80.000 ARS</div>
-            <div id="usd-p1" class="price-usd"></div>
-            <ul class="benefit-list">
-                <li>✅ Web One Page Pro</li>
-                <li>✅ Hosting y Dominio</li>
-                <li>✅ 100% Mobile Ready</li>
-                <li>✅ Contacto Directo</li>
-            </ul>
-        </div>
-        <div class="plan-card" onclick="viajar(this, 'p2')">
-            <h2>ESTÁNDAR</h2>
-            <div class="price-ars" data-ars="190000">$190.000 ARS</div>
-            <div id="usd-p2" class="price-usd"></div>
-            <ul class="benefit-list">
-                <li>✅ Multi-secciones</li>
-                <li>✅ SEO Posicionamiento</li>
-                <li>✅ Blog Autogestionable</li>
-                <li>✅ Panel de Control</li>
-            </ul>
-        </div>
-        <div class="plan-card" onclick="viajar(this, 'p3')">
-            <h2>AVANZADO</h2>
-            <div class="price-ars" data-ars="350000">$350.000 ARS</div>
-            <div id="usd-p3" class="price-usd"></div>
-            <ul class="benefit-list">
-                <li>✅ Tienda Online Pro</li>
-                <li>✅ Mercado Pago Integrado</li>
-                <li>✅ Stock y Ventas</li>
-                <li>✅ Soporte VIP Juan Web</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="comments-section">
-        <h3>💬 TRANSMISIONES DE LA GALAXIA</h3>
-        <div id="comments-container">
-            <div class="comment-box">
-                <div class="comment-author">⭐ Rodrigo Fernández - Mecánica</div>
-                <div class="comment-text">Increíble lo que Juan logró con mi taller. Antes dependía del boca en boca, ahora Google me trae clientes todos los días. La inversión se pagó sola en dos meses.</div>
-            </div>
-            <div class="comment-box">
-                <div class="comment-author">⭐ Valentina Ríos - E-commerce</div>
-                <div class="comment-text">Pasé de vender por Instagram stories a tener una tienda profesional que factura sola. El sistema de Mercado Pago automatizado es una locura.</div>
-            </div>
-            <div class="comment-box">
-                <div class="comment-author">⭐ Martín Casal - Estudio Jurídico</div>
-                <div class="comment-text">Ahora aparezco primero en Google cuando buscan "abogado". Las consultas no paran de llegar. Profesionalismo total.</div>
-            </div>
-        </div>
-
-        <div class="add-comment">
-            <input type="text" id="com-name" placeholder="Tu Nombre o Marca...">
-            <textarea id="com-text" rows="3" placeholder="Escribe tu testimonio aquí..."></textarea>
-            <button onclick="postComment()">ENVIAR TRANSMISIÓN</button>
-        </div>
-    </div>
-</div>
+<!-- PELOTA FLAC -->
+<div id="pelota-flac">FLAC Wilson</div>
 
 <script>
-const VALOR_BLUE = 1250; 
-let vozMuteada = false;
-let voicesLoaded = false;
-let currentUtterance = null;
+(function () {
+    const pelota = document.getElementById("pelota-flac");
+    let x = 100, y = 100;
+    let dx = 2.5, dy = 2.5;
+    const size = 70;
 
-// Fondo de estrellas dinámico
-const sContainer = document.getElementById('stars');
-for(let i=0; i<200; i++) {
-    const st = document.createElement('div');
-    st.className = 'star';
-    st.style.width = '2px'; st.style.height = '2px';
-    st.style.top = Math.random()*100+'%'; st.style.left = Math.random()*100+'%';
-    sContainer.appendChild(st);
-}
+    function animar() {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
 
-document.querySelectorAll('.price-ars').forEach((p, i) => {
-    const ars = p.getAttribute('data-ars');
-    document.getElementById(`usd-p${i+1}`).innerText = `~ ${(ars/VALOR_BLUE).toFixed(0)} USD (Blue)`;
-});
+        x += dx;
+        y += dy;
 
-const guion = {
-    intro: "Bienvenido al centro de mando. Escucha con atención... pero atención de verdad. Todo empezó en Buenos Aires, Congreso, Monserrat específicamente, cerca de la plaza, bajo una lluvia eléctrica. Tenía en mis manos archivos encriptados... una lista negra: miles de negocios condenados a ser fantasmas digitales, sin rumbo, invisibles. Ahí comprendí que el código es el arma más potente del siglo veintiuno. Soy Juan Web nació como la resistencia... para los que se niegan a ser borrados por el algoritmo. He rescatado marcas muertas, devolviéndolas a la vida con tecnología superior. No es azar que estés aquí. La pregunta es: ¿Seguirás en las sombras digitales... o serás el dueño de tu propio destino comercial? El tiempo se agota. La solución está en tus manos. Iniciando abducción en tres... dos... uno.",
-    tierra: "¡La Tierra! El planeta donde nació mi misión. Mi objetivo es que cualquier terrícola pueda tener un sitio premium sin gastar una fortuna. ¡Tecnología para todos!",
-    historia: "Saturno es el laboratorio de Soy Juan Web. Aunque somos nuevos, tenemos más potencia que un motor de plasma. No somos una agencia aburrida; somos tus copilotos.",
-    google: "La Luna de Google. El satélite que ilumina toda la red digital. Es el faro que guía a millones de usuarios hacia tu negocio. Desde aquí controlo la luz que proyecta tu marca en el universo digital. Cuando alguien busca lo que ofrecés, yo me aseguro de que tu sitio brille más fuerte que todos. La Luna nunca se apaga, y tu presencia tampoco.",
-    satelite: "El satélite de comunicaciones. Transmite tu señal comercial a toda la galaxia digital. Representa la conexión constante, el monitoreo en tiempo real, la analítica que nunca duerme. Desde aquí observo el comportamiento de tus clientes, optimizo campañas, ajusto estrategias. Es mi centro de operaciones para mantener tu negocio siempre visible, siempre conectado.",
-    fb: "Facebook: Sigue siendo el gigante para conectar con clientes locales y armar comunidades fieles.",
-    ig: "¡Instagram! El planeta de la imagen. Aquí es fundamental el contenido visual. Te ayudo a crear Reels que enganchen y publicidad paga de alto rendimiento.",
-    tk: "TikTok: Viralidad pura. Creamos estrategias de video corto para que tu marca se vuelva tendencia en tiempo récord.",
-    yt: "YouTube: El planeta de la confianza. Los videos largos generan autoridad. Te ayudamos a colonizar este terreno de contenido.",
-    wa: "WhatsApp: El contacto final. Tu web estará conectada directamente a tu celular para que no pierdas ni una sola consulta. ¡Ventas en tiempo real!",
-    p1: "Atención al Plan Básico: ochenta mil pesos argentinos. Una landing page profesional, completamente optimizada. Hosting incluido, dominio propio, diseño responsive que se adapta a cualquier dispositivo. Es el punto de partida perfecto. Hace tres meses, Carlos tenía una carpintería en Caballito. Invisible en Google, cero presencia digital. Le armamos su One Page en una semana. Hoy recibe cinco consultas diarias por WhatsApp. Su negocio creció un cuarenta por ciento. Todo empieza con un solo paso.",
-    p2: "Escuchá bien el Plan Estándar: ciento noventa mil pesos argentinos. Esto ya es otra dimensión. Web multi-sección con blog autogestionable, panel de control para que edites todo vos mismo, SEO profesional para que Google te posicione en primera página. Incluye optimización de velocidad, integración con redes sociales, formularios de contacto avanzados. María tenía un estudio contable en Palermo. Nadie la encontraba online. Implementamos este plan: blog con contenido estratégico, SEO local optimizado. En dos meses estaba en el top tres de Google para 'contador Palermo'. Sus clientes se triplicaron. El código cambió su realidad.",
-    p3: "Ahora sí... el Plan Avanzado. Trescientos cincuenta mil pesos argentinos. Esto es la nave nodriza completa. Tienda online profesional con carrito de compras, integración total con Mercado Pago, sistema de gestión de stock en tiempo real, panel de ventas con estadísticas, sistema de cupones y descuentos, envíos automáticos. Soporte VIP directo conmigo. Lucía vendía ropa por Instagram, perdía el cincuenta por ciento de las ventas porque no tenía forma de cobrar rápido. Le montamos la tienda completa. Sistema automatizado: el cliente compra, paga, recibe confirmación, todo sin que ella mueva un dedo. En cuatro meses facturó tres veces más que todo el año anterior. Esta es la tecnología que separa a los que sobreviven de los que dominan el mercado."
-};
+        if (x <= 0 || x + size >= w) dx *= -1;
+        if (y <= 0 || y + size >= h) dy *= -1;
 
-function loadVoices() {
-    return new Promise((resolve) => {
-        let voices = window.speechSynthesis.getVoices();
-        if (voices.length > 0) {
-            voicesLoaded = true;
-            resolve(voices);
-        } else {
-            window.speechSynthesis.onvoiceschanged = () => {
-                voices = window.speechSynthesis.getVoices();
-                voicesLoaded = true;
-                resolve(voices);
-            };
-        }
-    });
-}
+        pelota.style.left = x + "px";
+        pelota.style.top = y + "px";
 
-function getMaleVoice() {
-    const voices = window.speechSynthesis.getVoices();
-    const maleVoicePatterns = ['Jorge', 'Juan', 'Diego', 'Carlos', 'Sergio', 'es-ar-x-lad-network', 'Microsoft Pablo', 'Google español'];
-    const femaleNames = ['Paulina', 'Monica', 'Mónica', 'Marisol', 'Angelica', 'Luciana', 'Francisca', 'Female', 'Mujer'];
-    
-    for (const pattern of maleVoicePatterns) {
-        const voice = voices.find(v => v.name.includes(pattern) && (v.lang.startsWith('es')));
-        if (voice) return voice;
-    }
-    return voices.find(v => v.lang.startsWith('es') && !femaleNames.some(fn => v.name.includes(fn))) || voices.find(v => v.lang.startsWith('es')) || null;
-}
-
-function iniciarAbduccion() {
-    document.getElementById('big-title').classList.add('abducted');
-    setTimeout(() => hablar(guion.intro, true), 800);
-}
-
-let activo = null;
-
-function viajar(el, clave) {
-    const ship = document.getElementById('mothership');
-    const bot = document.getElementById('alien-bot');
-    const overlay = document.getElementById('overlay');
-
-    if(activo) activo.classList.remove('highlight');
-    overlay.style.display = 'block';
-    el.classList.add('highlight');
-    activo = el;
-
-    ship.style.top = "10%";
-    
-    setTimeout(() => {
-        bot.innerText = guion[clave];
-        bot.style.display = 'block';
-        hablar(guion[clave], false);
-    }, 400);
-}
-
-async function hablar(t, esIntro) {
-    if(vozMuteada) {
-        if(esIntro) desbloquearWeb();
-        return;
+        requestAnimationFrame(animar);
     }
 
-    if (!voicesLoaded) await loadVoices();
-
-    const flash = document.getElementById('abduction-flash');
-    window.speechSynthesis.cancel();
-    await new Promise(resolve => setTimeout(resolve, 50));
-    
-    const u = new SpeechSynthesisUtterance(t);
-    u.lang = "es-AR";
-    u.pitch = 0.7;
-    u.rate = 0.9;
-    u.volume = 1;
-
-    const maleVoice = getMaleVoice();
-    if (maleVoice) u.voice = maleVoice;
-
-    flash.classList.add('flicker-on');
-    window.speechSynthesis.speak(u);
-
-    u.onend = () => {
-        flash.classList.remove('flicker-on');
-        if(esIntro) desbloquearWeb();
-        else {
-            setTimeout(() => {
-                document.getElementById('overlay').style.display = 'none';
-                document.getElementById('alien-bot').style.display = 'none';
-                if(activo) activo.classList.remove('highlight');
-            }, 3000);
-        }
-    };
-    u.onerror = () => {
-        flash.classList.remove('flicker-on');
-        if(esIntro) desbloquearWeb();
-    };
-}
-
-function desbloquearWeb() {
-    document.getElementById('intro-layer').style.opacity = '0';
-    setTimeout(() => {
-        document.getElementById('intro-layer').style.display = 'none';
-        document.getElementById('main-content').style.opacity = '1';
-    }, 1000);
-}
-
-function postComment() {
-    const name = document.getElementById('com-name').value;
-    const text = document.getElementById('com-text').value;
-    if(!name || !text) return;
-
-    const box = document.createElement('div');
-    box.className = 'comment-box';
-    box.innerHTML = `<div class="comment-author">⭐ ${name}</div><div class="comment-text">${text}</div>`;
-    document.getElementById('comments-container').prepend(box);
-    document.getElementById('com-name').value = "";
-    document.getElementById('com-text').value = "";
-}
-
-function toggleMute() {
-    vozMuteada = !vozMuteada;
-    const btn = document.getElementById('mute-btn');
-    btn.innerHTML = vozMuteada ? '🔇' : '🔊';
-    btn.classList.toggle('muted', vozMuteada);
-    if(vozMuteada) window.speechSynthesis.cancel();
-}
-
-loadVoices();
+    animar();
+})();
 </script>
+
 </body>
 </html>
+
+
